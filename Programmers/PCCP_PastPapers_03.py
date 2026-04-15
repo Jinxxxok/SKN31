@@ -1,41 +1,39 @@
+def second(mm,ss):
+        result =  ss + (mm * 60)
+        
+        return result
+
 def solution(video_len, pos, op_start, op_end, commands):
-    answer = ''
     m, s = map(int, pos.split(':'))
     opm, ops = map(int, op_start.split(':'))
     opm1, ops1 = map(int, op_end.split(':'))
     lm, ls = map(int, video_len.split(':'))
 
-    if opm <= m <= opm1 and ops <= s <= ops1:
-        m, s = opm1, ops1
-    
-    if commands == 'next':
-        s += 10
-        if s >= 60:
-            m += s //60
-            s %= 60
-        if m > lm or (m == lm and s >= ls):
-            m, s = lm, ls
-    
-    elif commands == 'prev':
-        s -= 10      
-        if s < 0:
-            m += s //60
-            s %= 60
-        
-        if m < 0:
-            m, s = 0, 0
-    
-    if opm <= m <= opm1 and ops <= s <= ops1:
-        m, s = opm1, ops1
+    ss = second(m,s) # 초로 변환환 pos
+    op = second(opm, ops) # 초로 변환한 op_start
+    op1 = second(opm1, ops1) # 초로 변환한 op_end
+    l = second(lm,ls) # 초로 변환한 video_len
 
-    answer = f"{m:02d}:{s:02d}" 
+    if op <= ss <= op1:
+        ss = op1
+    
+    for cm in commands:
+        if cm == 'next':
+            ss += 10
+            if ss > l:
+                ss = l
+    
+        elif cm == 'prev':
+            ss -= 10      
+            if ss < 0:
+                ss = 0
+    
+    if op <= ss <= op1:
+        ss = op1
+
+    m1 = ss // 60
+    s1 = ss % 60
+
+    answer = f"{m1:02d}:{s1:02d}" 
                 
     return answer
-
-solution('34:33', '13:00', '00:55', '02:55', ['next','prev'])
-
-# video_len = '34:33'
-
-# a, b = video_len.split(':')
-
-# print(a, b)
