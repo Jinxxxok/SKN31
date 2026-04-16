@@ -28,8 +28,8 @@ def solution(video_len, pos, op_start, op_end, commands):
             if ss < 0:
                 ss = 0
     
-    if op <= ss <= op1:
-        ss = op1
+        if op <= ss <= op1:
+            ss = op1
 
     m1 = ss // 60
     s1 = ss % 60
