@@ -1,16 +1,12 @@
-<!-- templates\polls\vote_result.html -->
-
-<html lang="en">
-<head>
-    <title>투표결과</title>
-</head>
-<body>
+<!-- templates/polls/vote_result.html -->
+{% extends 'layout/main_layout.html' %}
+{% block title %}투표결과{% endblock title %}
+{% block contents %}
     <h1>투표결과</h1>
     <b>질문: {{question.pk}}. {{question.question_text}}</b>
     <ol>
         {% for choice in choice_list %}
-            <li>{{choice.choice_text - {{choice.vote}}</li>
+            <li class="form-control">{{choice.choice_text}} - {{choice.vote}}</li>   
         {% endfor %}
     </ol>
-</body>
-</html>
+{% endblock contents %}

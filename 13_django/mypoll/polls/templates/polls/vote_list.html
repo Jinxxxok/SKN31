@@ -1,0 +1,26 @@
+<!-- templates/polls/vote_list.html -->
+{% extends 'layout/main_layout.html' %}
+{% block title %}설문목록{% endblock title %}
+{% block contents %}
+
+{# Django Template 한줄 주석 #}
+{% comment %}
+블록 주석
+주석
+주석 
+{% endcomment %}
+<!-- HTML 주석 --> 
+    <h1>설문 질문 목록</h1>
+    <ul>
+        {# question_list: QuerySet[Question] - Iterable #}
+        {% for question in question_list %}
+            <li>
+                <!-- <a href="/polls/vote_form/{{question.pk}}"> -->
+                <a href="{% url 'polls:vote_form' question.pk %}" class="form-control">
+                    {{question.pk}}. {{question.question_text | truncatewords:2}}
+                    {{question.pub_date | date:'Y-m-d'}}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock contents %}
